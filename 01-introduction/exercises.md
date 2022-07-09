@@ -35,7 +35,7 @@ product [2, 3, 4] =
 ```haskell
 qsort (x : xs) = qsort longer ++ [x ] ++ qsort smaller
 ```
-This change is enough to produces a reverse sorted version of a list, since the `larger` "sub-list" will occupy the first position in the first recursion.
+This change is enough to produces a reverse sorted version of a list, since the `larger` sub list will occupy the first position in the first recursion.
 
 5. What would be the eﬀect of replacing `<=` by `<` in the deﬁnition of qsort?
 Hint: consider the example qsort [2, 2, 3, 1, 1].
