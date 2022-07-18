@@ -36,51 +36,52 @@ third (_ : (_ : (k : _))) = k
 - a conditional expression;
 
 ```haskell
-isEmpty :: [a] -> Bool
-isEmpty xs = if length xs <= 0 then True else False
+safetail xs = if null xs then [] else tail xs
 ```
 
 - guarded equations;
 
 ```haskell
-isEmpty :: [a] -> Bool
-isEmpty xs | length xs <= 0 = True
-           | otherwise = False
-
 safetail :: [a] -> [a]
-safetail xs | isEmpty xs == True = []
+safetail xs | null xs = []
             | otherwise = tail xs
 ```
 
 - pattern matching.
 
 ```haskell
--- TODO
+-- empty list case
+safetail [] = []
+
+-- non-empty list case
+safetail (_:xs) = xs
 ```
 
 4. In a similar way to && in section 4.4, show how the disjunction operator || can be deﬁned in four diﬀerent ways using pattern matching.
 
 ```haskell
--- first way
-(||) :: Bool -> Bool -> Boll
+-- truth table
+(||) :: Bool -> Bool -> Bool
 True || True = True
 True || False = True
 False || True = True
 False || False = False
 
--- second way
-(||) :: Bool -> Bool -> Boll
+-- wildcard pattern
+(||) :: Bool -> Bool -> Bool
 False || False = False
-True || _ = True
+_ || _ = True
 
--- third way
-(||) :: Bool -> Bool -> Boll
+-- pattern matching
+(||) :: Bool -> Bool -> Bool
 True || _ = True
 False || b = b
 
--- fourth way
-(||) :: Bool -> Bool -> Boll
--- TODO
+-- guarded equations
+(||) :: Bool -> Bool -> Bool
+p || q | p == True = True
+       | q == True = True
+       | otherwise = False
 ```
 
 5. Without using any other library functions or operators, show how the meaning of the following pattern matching deﬁnition for logical conjunction && can be formalised using conditional expressions:
@@ -90,11 +91,28 @@ True && True = True
 _ && _ = False
 ```
 
-Hint: use two nested conditional expressions.
+```haskell
+(&&) :: Bool -> (Bool -> Bool)
+p && q = if p == True then
+           if q == True then True
+           else False
+          else False
+```
+
+6. Do the same for the following alternative deﬁnition, and note the diﬀerence in the number of conditional expressions that are required:
 
 ```haskell
-p && q = if p == q then p else False
+True && b = b
+False && _ = False
 ```
+
+```haskell
+(&&) :: Bool -> (Bool -> Bool)
+p && q = if p == True then q
+         else False
+```
+
+The number of conditional expressions is less than the previous one, given the fact that the preposition `q` does not need to be evaluated when the preposition `p` is `True`.
 
 7. Show how the meaning of the following curried function deﬁnition can be formalised in terms of lambda expressions:
 
@@ -107,3 +125,5 @@ mult x y z = x*y*z
 mult :: Int -> (Int -> (Int -> Int))
 mult = \x -> (\y -> (\z -> x * y * z))
 ```
+
+8. Solution left to the next chapter, where a more general solution of Luhn Algorithm is exposed.
