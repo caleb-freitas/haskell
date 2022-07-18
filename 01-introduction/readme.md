@@ -1,4 +1,4 @@
-# Exercises
+# Chapter 1: Introduction
 
 1. Give another possible calculation for the result of `double (double 2)`.
 
@@ -12,13 +12,14 @@ double (double 2) =
 2. Show that `sum [x] = x` for any number `x`.
 
 ```haskell
-sum [x] = 
+sum [x] =
 = x + sum [] =
 = x + 0 =
 = x
 ```
 
 3. Deﬁne a function `product` that produces the product of a list of numbers, and show using your deﬁnition that `product [2, 3, 4] = 24`.
+
 ```haskell
 product [] = 1
 product (x:xs) = x * product(xs)
@@ -32,12 +33,20 @@ product [2, 3, 4] =
 ```
 
 4. How should the deﬁnition of the function qsort be modiﬁed so that it produces a reverse sorted version of a list?
+
 ```haskell
-qsort (x : xs) = qsort longer ++ [x ] ++ qsort smaller
+reversed_quicksort :: (Ord a) => [a] -> [a]
+reversed_quicksort[] = []
+
+reversed_quicksort(x:xs) = reversed_quicksort larger ++ [x] ++ reversed_quicksort smaller
+                    where
+                      longer = [b | b <- xs, b > x]
+                      smaller = [a | a <- xs, a <= x]
 ```
+
 This change is enough to produces a reverse sorted version of a list, since the `larger` sub list will occupy the first position in the first recursion.
 
 5. What would be the eﬀect of replacing `<=` by `<` in the deﬁnition of qsort?
-Hint: consider the example qsort [2, 2, 3, 1, 1].
+   Hint: consider the example qsort [2, 2, 3, 1, 1].
 
 Some numbers may be ignored, since the interval `a < x < b` it's not completely defined. This only works in the case where all the numbers are distinct from each other. In mathematical notation, we can say that this only works for the interval: `{a1, a2, ..., an | ai != aj for all i != j}`.

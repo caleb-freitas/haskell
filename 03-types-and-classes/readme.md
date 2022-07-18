@@ -1,4 +1,4 @@
-# Exercises
+# Chapter 3: Types and Classes
 
 1. What are the types of the following values?
 
@@ -10,7 +10,7 @@
 [[a] -> [a]]
 ```
 
-2. Write down deﬁnitions that have the following types; it does not matter what the deﬁnitions actually do as long as they are type correct.
+2. Write down deﬁnitions that have the following types. It does not matter what the deﬁnitions actually do as long as they are type correct.
 
 ```haskell
 bools :: [Bool]
@@ -29,8 +29,9 @@ apply :: (a -> b) -> a -> b
 apply f x = f (f x)
 ```
 
-3. What are the types of the following functions? Hint: take care to include the necessary class constraints in the types if the
-functions are deﬁned using overloaded operators.
+3. What are the types of the following functions?
+
+Hint: take care to include the necessary class constraints in the types if the functions are deﬁned using overloaded operators.
 
 ```haskell
 second :: [a] -> a

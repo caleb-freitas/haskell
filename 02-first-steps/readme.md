@@ -1,4 +1,4 @@
-# Exercises
+# Chapter 2: First Steps
 
 1. Work through the examples from this chapter using GHCi
 
@@ -30,6 +30,9 @@ my_last ns = head (reverse ns)
 5. The library function `init` removes the last element from a non-empty list; for example, `init [1,2,3 4,5] = [1,2,3,4]`. Show how `init` could similarly be deﬁned in two diﬀerent ways
 
 ```haskell
+-- first way
 my_init_tail ns = reverse (tail (reverse ns))
+
+-- second way
 my_init_drop ns = reverse (drop 1 (reverse ns))
 ```
