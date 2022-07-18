@@ -1,6 +1,6 @@
 # Exercises
 
-1. Using library functions, deﬁne a function halve :: [a] -> ([a],[a]) that splits an even-lengthed list into two halves
+1. Using library functions, deﬁne a function `halve :: [a] -> ([a],[a])` that splits an even-lengthed list into two halves
 
 ```haskell
 halve :: [a] -> ([a], [a])
@@ -12,19 +12,22 @@ halve xs = (take n xs, drop n xs)
 
 - head and tail;
 
+```haskell
+third :: [a] -> a
+third xs = head(tail(tail xs))
+```
+
 - list indexing !!;
+
+```haskell
+third :: [a] -> a
+third xs = xs !! 2
+```
 
 - pattern matching.
 
 ```haskell
 third :: [a] -> a
--- head and tail
-third xs = head(tail(tail xs))
-
--- list indexing !!
-third xs = xs !! 2
-
--- pattern matching
 third (_ : (_ : (k : _))) = k
 ```
 
@@ -53,11 +56,6 @@ safetail xs | isEmpty xs == True = []
 
 ```haskell
 -- TODO
-```
-
-```haskell
-isEmpty :: [a] -> Bool
-isEmpty xs = if length xs <= 0 then True else False
 ```
 
 4. In a similar way to && in section 4.4, show how the disjunction operator || can be deﬁned in four diﬀerent ways using pattern matching.
