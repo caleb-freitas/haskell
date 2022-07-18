@@ -1,4 +1,4 @@
-# Exercises
+# Chapter 4: Defining Functions
 
 1. Using library functions, deﬁne a function `halve :: [a] -> ([a],[a])` that splits an even-lengthed list into two halves
 
@@ -8,7 +8,7 @@ halve xs = (take n xs, drop n xs)
             where n = length xs `div` 2
 ```
 
-2. Deﬁne a function third :: [a] -> a that returns the third element in a list that contains at least this many elements using:
+2. Deﬁne a function `third :: [a] -> a` that returns the third element in a list that contains at least this many elements using:
 
 - head and tail;
 
@@ -80,7 +80,7 @@ False || b = b
 
 -- fourth way
 (||) :: Bool -> Bool -> Boll
-TODO
+-- TODO
 ```
 
 5. Without using any other library functions or operators, show how the meaning of the following pattern matching deﬁnition for logical conjunction && can be formalised using conditional expressions:
@@ -91,3 +91,19 @@ _ && _ = False
 ```
 
 Hint: use two nested conditional expressions.
+
+```haskell
+p && q = if p == q then p else False
+```
+
+7. Show how the meaning of the following curried function deﬁnition can be formalised in terms of lambda expressions:
+
+```haskell
+mult :: Int -> Int -> Int -> Int
+mult x y z = x*y*z
+```
+
+```haskell
+mult :: Int -> (Int -> (Int -> Int))
+mult = \x -> (\y -> (\z -> x * y * z))
+```
