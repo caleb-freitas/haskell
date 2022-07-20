@@ -9,3 +9,5 @@
 - [Chapter 3: Types and Classes](03-types-and-classes/readme.md)
 
 - [Chapter 4: Defining Functions](04-defining-functions/readme.md)
+
+- [Chapter 5: List Comprehension](05-list-comprehension/readme.md)
