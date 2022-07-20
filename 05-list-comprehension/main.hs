@@ -21,3 +21,6 @@ perfect n = sum (init (factors n)) == n
 
 perfects :: Int -> [Int]
 perfects n = [k | k <- [1..n], perfect k]
+
+scalar_product :: [Int] -> [Int] -> Int
+scalar_product xs ys = sum [r * s | (r, s) <- zip xs ys]

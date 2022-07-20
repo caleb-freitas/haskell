@@ -51,8 +51,10 @@ perfects n = [k | k <- [1..n], perfect k]
 7. Show how the list comprehension `[(x, y) | x <- [1, 2], y <- [3, 4]]` with two generators can be re-expressed using two comprehensions with single generators.
 
 ```haskell
--- TODO
+Prelude> concat [[(x, y) | y <- [3, 4]] | x <- [1, 2]]
 ```
+
+8. Redeﬁne the function positions using the function `find`.
 
 ```haskell
 -- using zip
@@ -64,10 +66,11 @@ positions :: Eq a => a -> [a] -> [Int]
 -- TODO
 ```
 
-9. Show how a list comprehension can be used to deﬁne a function scalarproduct :: [Int] -> [Int] -> Int that returns the scalar product of two lists.
+9. Show how a list comprehension can be used to deﬁne a function `scalar_product :: [Int] -> [Int] -> Int` that returns the scalar product of two lists.
 
 ```haskell
--- TODO
+scalar_product :: [Int] -> [Int] -> Int
+scalar_product xs ys = sum [r * s | (r, s) <- zip xs ys]
 ```
 
 10. Modify the Caesar cipher program to also handle upper-case letters.
