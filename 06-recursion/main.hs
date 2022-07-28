@@ -11,6 +11,30 @@ isort :: Ord a => [a] -> [a]
 isort [] = []
 isort (x:xs) = insert x (isort xs)
 
-_sum :: Num a => [a] -> a
-_sum [] = 0
-_sum (n:ns) = n + _sum ns
+-- 1
+factorial :: Int -> Int
+factorial n | n <= 0 = 1
+            | otherwise = n * factorial(n - 1)
+
+-- 2
+sumdown :: Int -> Int
+sumdown 0 = 0
+sumdown n = n + sumdown(n - 1)
+
+-- 3
+(^) :: Int -> Int -> Int
+m ^ 1 = m
+m ^ n = m * (m ^ (n - 1))
+
+-- 3 ^ 3
+-- 3 * (3 ^ 2)
+-- 3 * (3 * (3 ^ 1))
+-- 3 * (3 * 3)
+-- 27
+
+-- 4
+euclid :: Int -> Int -> Int
+euclid m n | m <= 0 || n <= 0 = error "invalid argument"
+           | m == n = m
+           | m < n = euclid m (n - m)
+           | otherwise = euclid (m - n) n
