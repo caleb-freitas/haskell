@@ -11,3 +11,7 @@
 - [Chapter 4: Defining Functions](04-defining-functions/readme.md)
 
 - [Chapter 5: List Comprehension](05-list-comprehension/readme.md)
+
+- [Chapter 6: Recursion](06-recursion/readme.md)
+
+- [Chapter 7: High-Order Functions](07-high-order-functions/readme.md)
