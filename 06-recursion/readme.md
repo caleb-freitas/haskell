@@ -4,7 +4,8 @@
 
 ```haskell
 factorial :: Int -> Int
-factorial n | n <= 0 = error "invalid argument"
+factorial n | n < 0 = error "invalid argument"
+            | n == 0 = 1
             | otherwise = n * factorial(n - 1)
 
 ```
@@ -31,7 +32,7 @@ m ^ n = m * (m ^ (n - 1))
 -- 27
 ```
 
-4. Deﬁne a recursive function euclid :: Int -> Int -> Int that implements Euclid’s algorithm for calculating the greatest common divisor of two non-negative integers: if the two numbers are equal, this number is the result; otherwise, the smaller number is subtracted from the larger, and the same process is then repeated.
+4. Deﬁne a recursive function `euclid :: Int -> Int -> Int` that implements Euclid’s algorithm for calculating the greatest common divisor of two non-negative integers: if the two numbers are equal, this number is the result; otherwise, the smaller number is subtracted from the larger, and the same process is then repeated.
 
 ```haskell
 euclid :: Int -> Int -> Int
@@ -46,19 +47,36 @@ euclid m n | m <= 0 || n <= 0 = error "invalid argument"
 - `length [1,2,3]`
 
 ```haskell
+length :: [a] -> Int
+length [] = 0
+length (_:xs) = 1 + length xs
 
+-- length [1,2,3]
+-- 1 + (length [2, 3])
+-- 1 + (1 + (length [3]))
+-- 1 + (1 + (1 + length[]))
+-- 1 + (1 + 1 (0)
+-- = 3
 ```
 
 - `drop 3 [1,2,3,4,5]`
 
 ```haskell
+drop :: Int -> [a] -> [a]
+drop 0 xs = xs
+drop _ [] = []
+drop n (_:xs) = drop (n-1) xs
 
+drop 3 [1,2,3,4,5]
+drop
 ```
 
 - `init [1,2,3]`
 
 ```haskell
-
+init :: [a] -> [a]
+init [_] = []
+init (x:xs) = x : init xs
 ```
 
 6. Without looking at the deﬁnitions from the standard prelude, deﬁne the following library functions on lists using recursion.
@@ -67,41 +85,65 @@ euclid m n | m <= 0 || n <= 0 = error "invalid argument"
 
 ```haskell
 and :: [Bool] -> Bool
+and [] = True
+and (x:xs) = x && and (xs)
+
+-- and [True, True, False]
+-- True && (and [True, False])
+-- True && (True && (and [False]))
+-- True && (True && (False && and []))
+-- True && (True && (False && True))
+-- True && (True && False)
+-- True && False
+-- False
 ```
 
 - Concatenate a list of lists: `concat :: [[a]] -> [a]`
 
 ```haskell
 concat :: [[a]] -> [a]
+-- TODO
 ```
 
 - Produce a list with n identical elements: `replicate :: Int -> a -> [a]`
 
 ```haskell
 replicate :: Int -> a -> [a]
+replicate 0 _ = []
+replicate n a = a : replicate (n - 1) a
+
+-- replicate 3 "x"
+-- "x" : (replicate 2 "x")
+-- "x" : ("x" : (replicate 1 "x"))
+-- "x" : ("x" : ("x" : (replicate 0 "x")))
+-- "x" : ("x" : ("x" : ([])))
+-- ["x", "x", "x"]
 ```
 
 - Select the nth element of a list: `(!!) :: [a] -> Int -> a`
 
 ```haskell
 (!!) :: [a] -> Int -> a
+-- TODO
 ```
 
 - Decide if a value is an element of a list: `elem :: Eq a => a -> [a] -> Bool`
 
 ```haskell
 elem :: Eq a => a -> [a] -> Bool
+-- TODO
 ```
 
 7. Deﬁne a recursive function `merge :: Ord a => [a] -> [a] -> [a]` that merges two sorted lists to give a single sorted list.
 
 ```haskell
 merge :: Ord a => [a] -> [a] -> [a]
+-- TODO
 ```
 
 8. Using merge, deﬁne a function `msort :: Ord a => [a] -> [a]` that implements merge sort , in which the empty list and singleton lists are already sorted, and any other list is sorted by merging together the two lists that result from sorting the two halves of the list separately.
 
-Hint: ﬁrst deﬁne a function halve :: [a] -> ([a],[a]) that splits a list into two halves whose lengths diﬀer by at most one.
+Hint: ﬁrst deﬁne a function `halve :: [a] -> ([a],[a])` that splits a list into two halves whose lengths diﬀer by at most one.
 
 ```haskell
 halve :: [a] -> ([a], [a])
@@ -109,6 +151,7 @@ halve xs = (take n xs, drop n xs)
             where n = length xs `div` 2
 
 msort :: Ord a => [a] -> [a]
+-- TODO
 ```
 
 9. Using the ﬁve-step process, construct the library functions that:
@@ -116,17 +159,20 @@ msort :: Ord a => [a] -> [a]
 - calculate the sum of a list of numbers
 
 ```haskell
-
+sum :: [Int] -> Int
+-- TODO
 ```
 
 - take a given number of elements from the start of a list
 
 ```haskell
-
+take :: Int -> [a] -> [a]
+-- TODO
 ```
 
 - select the last element of a non-empty list.
 
 ```haskell
-
+last :: Int -> [a] -> a
+-- TODO
 ```
