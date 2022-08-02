@@ -2,29 +2,66 @@
 
 1. Show how the list comprehension `[f x | x <- xs, p x]` can be re-expressed using the higher-order functions `map` and `filter`.
 
-2. Without looking at the deﬁnitions from the standard prelude, deﬁne the following higher-order library functions on lists.
+```haskell
+xpto :: (a -> b) -> (a -> Bool) -> [a] -> [b]
+xpto f p = map f . filter p
+```
+
+2. Without looking at the deﬁnitions from the standard prelude, deﬁne the following higher-order library functions on lists:
 
 - Decide if all elements of a list satisfy a predicate:
 
-`all :: (a -> Bool) -> [Bool] -> Bool`
+`all :: (a -> Bool) -> [a] -> Bool`
+
+```haskell
+all :: (a -> Bool) -> [a] -> Bool
+all p xs = and . map p xs
+```
 
 - Decide if any element of a list satisﬁes a predicate:
 
-`any :: (a -> Bool) -> [Bool] -> Bool`
+```haskell
+any :: (a -> Bool) -> [a] -> Bool
+any p xs = or . map p xs
+```
 
 - Select elements from a list while they satisfy a predicate:
 
-`takeWhile :: (a -> Bool) -> [a] -> [a]`
+```haskell
+take_while :: (a -> Bool) -> [a] -> [a]
+take_while _ [] = []
+take_while p (x:xs) | p x = x : take_while p xs
+                    | otherwise = []
+```
 
 - Remove elements from a list while they satisfy a predicate:
 
-`dropWhile :: (a -> Bool) -> [a] -> [a]`
-
-Note: in the prelude the ﬁrst two of these functions are generic functions rather than being speciﬁc to the type of lists.
+```haskell
+284
+drop_while :: (a -> Bool) -> [a] -> [a]
+drop_while _ [] = []
+drop_while p (x:xs) | p x = drop_while p xs
+                    | otherwise = x:xs
+```
 
 3. Redeﬁne the functions `map f` and `filter p` using `foldr`.
 
+```haskell
+map :: (a -> b) -> [a] -> [b]
+map f xs = [f x | x <- xs]
+map' f = foldr (\x xs -> f x : xs) []
+
+filter :: (a -> b) -> [a] -> [b]
+filter p xs = [x | x <- xs, p x]
+filter' p = foldr (\x xs -> if p x then x:xs else xs) []
+```
+
 4. Using foldl, deﬁne a function `dec2int :: [Int] -> Int` that converts a decimal number into an integer.
+
+```haskell
+dec2int :: [Int] -> Int
+dec2int = foldl (\x y -> 10*x + y) 0
+```
 
 5. Without looking at the deﬁnitions from the standard prelude, deﬁne the higher-order library function curry that converts a function on pairs into a curried function, and, conversely, the function uncurry that converts a curried function with two arguments into a function on pairs.
 
