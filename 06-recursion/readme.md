@@ -167,10 +167,12 @@ elem e (x:xs) = if e == x then True else elem e xs
 
 ```haskell
 merge :: Ord a => [a] -> [a] -> [a]
--- TODO
+merge [] ys = ys
+merge xs [] = xs
+merge (x:xs) (y:ys) = if x <= y then x : y : merge xs ys else y : x : merge xs ys
 ```
 
-8. Using merge, deﬁne a function `msort :: Ord a => [a] -> [a]` that implements merge sort , in which the empty list and singleton lists are already sorted, and any other list is sorted by merging together the two lists that result from sorting the two halves of the list separately.
+8. Using merge, deﬁne a function `msort :: Ord a => [a] -> [a]` that implements merge sort, in which the empty list and singleton lists are already sorted, and any other list is sorted by merging together the two lists that result from sorting the two halves of the list separately.
 
 Hint: ﬁrst deﬁne a function `halve :: [a] -> ([a],[a])` that splits a list into two halves whose lengths diﬀer by at most one.
 
@@ -180,7 +182,24 @@ halve xs = (take n xs, drop n xs)
             where n = length xs `div` 2
 
 msort :: Ord a => [a] -> [a]
--- TODO
+msort [] = []
+msort [a] = [a]
+msort xs = merge (msort ys) (msort zs)
+            where (ys, zs) = halve xs
+
+
+-- msort [4,2,3,1]
+-- merge (msort [4,2]) (msort [3,1])
+-- merge (merge (msort [4]) (msort [2])) (merge (msort [3]) (msort [1]))
+-- merge (merge [4] [2]) (merge [3] [1])
+-- merge (2 : merge [4] []) (1 : merge [3] [])
+-- merge (2 : [4]) (1 : [3])
+-- merge [2,4] [1,3]
+-- 1 : (merge [2,4] [3])
+-- 1 : (2 : (merge [4] [3]))
+-- 1 : (2 : (3 : merge [4] []))
+-- 1 : (2 : (3 : [4]))
+-- [1,2,3,4]
 ```
 
 9. Using the ﬁve-step process, construct the library functions that:
