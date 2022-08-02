@@ -56,7 +56,7 @@ length (_:xs) = 1 + length xs
 -- 1 + (1 + (length [3]))
 -- 1 + (1 + (1 + length[]))
 -- 1 + (1 + 1 (0)
--- = 3
+-- 3
 ```
 
 - `drop 3 [1,2,3,4,5]`
@@ -67,8 +67,11 @@ drop 0 xs = xs
 drop _ [] = []
 drop n (_:xs) = drop (n-1) xs
 
-drop 3 [1,2,3,4,5]
-drop
+-- drop 3 [1,2,3,4,5]
+-- drop 2 [2,3,4,5]
+-- drop 1 [3,4,5]
+-- drop 0 [4,5]
+-- [4,5]
 ```
 
 - `init [1,2,3]`
@@ -77,6 +80,12 @@ drop
 init :: [a] -> [a]
 init [_] = []
 init (x:xs) = x : init xs
+
+-- init [1,2,3]
+-- 1 : (init [2,3])
+-- 1 : (2 : (init [3]))
+-- 1: (2 : [])
+-- [1,2]
 ```
 
 6. Without looking at the deﬁnitions from the standard prelude, deﬁne the following library functions on lists using recursion.
@@ -102,7 +111,10 @@ and (x:xs) = x && and (xs)
 
 ```haskell
 concat :: [[a]] -> [a]
--- TODO
+concat [[],[]] = []
+concat [[a],[]] = [a]
+concat [[],[a]] = [a]
+concat xs (y:ys) = -- TODO
 ```
 
 - Produce a list with n identical elements: `replicate :: Int -> a -> [a]`
@@ -124,14 +136,31 @@ replicate n a = a : replicate (n - 1) a
 
 ```haskell
 (!!) :: [a] -> Int -> a
--- TODO
+(x:xs) !! 0 = x
+(x:xs) !! n = xs !! (n-1)
+
+-- [1,2,3,4,5] !! 2
+-- [2,3,4,5] !! 1
+-- [3,4,5] !! 0
+-- 3
 ```
 
 - Decide if a value is an element of a list: `elem :: Eq a => a -> [a] -> Bool`
 
 ```haskell
 elem :: Eq a => a -> [a] -> Bool
--- TODO
+elem _ [] = False
+elem e (x:xs) = if e == x then True else elem e xs
+
+-- elem 3 [1,2,3,4,5]
+-- elem 3 [2,3,4,5]
+-- elem 3 [3,4,5]
+-- True
+
+-- elem 10 [1,2,3]
+-- elem 10 [2,3]
+-- elem 10 [3]
+-- False
 ```
 
 7. Deﬁne a recursive function `merge :: Ord a => [a] -> [a] -> [a]` that merges two sorted lists to give a single sorted list.
@@ -160,19 +189,23 @@ msort :: Ord a => [a] -> [a]
 
 ```haskell
 sum :: [Int] -> Int
--- TODO
+sum [] = 0
+sum (n:ns) = n + sum ns
 ```
 
 - take a given number of elements from the start of a list
 
 ```haskell
 take :: Int -> [a] -> [a]
--- TODO
+take _ [] = []
+take 0 xs = []
+take n (x:xs) = x : take (n-1) xs
 ```
 
 - select the last element of a non-empty list.
 
 ```haskell
-last :: Int -> [a] -> a
--- TODO
+last :: [a] -> a
+last [x] = x
+last (x:xs) = last xs
 ```
